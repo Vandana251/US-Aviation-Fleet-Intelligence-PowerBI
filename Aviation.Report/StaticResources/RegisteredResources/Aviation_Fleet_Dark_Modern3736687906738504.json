@@ -1,0 +1,90 @@
+{
+  "name": "Aviation Executive Cockpit Theme",
+  "dataColors": [
+    "#38BDF8",
+    "#10B981",
+    "#F59E0B",
+    "#F43F5E",
+    "#A855F7",
+    "#06B6D4",
+    "#6366F1",
+    "#EC4899",
+    "#14B8A6",
+    "#F97316"
+  ],
+  "background": "#090E1A",
+  "foreground": "#F8FAFC",
+  "tableAccent": "#38BDF8",
+  "good": "#10B981",
+  "neutral": "#F59E0B",
+  "bad": "#F43F5E",
+  "maximum": "#38BDF8",
+  "center": "#A855F7",
+  "minimum": "#1E2D52",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#111D38"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#1E2D52"
+              }
+            },
+            "radius": 10
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#000000"
+              }
+            },
+            "position": "Outer",
+            "preset": "BottomRight",
+            "transparency": 60
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "fontSize": 13,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#090E1A"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

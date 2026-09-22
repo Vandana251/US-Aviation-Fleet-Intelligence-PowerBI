@@ -1,0 +1,6 @@
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.tmp
+flight_data_2024_cleaned.csv
+flight_data_2024_powerbi.csv
+__pycache__/

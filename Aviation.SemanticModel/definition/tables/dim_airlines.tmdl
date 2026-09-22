@@ -1,0 +1,104 @@
+table dim_airlines
+	lineageTag: b37657b0-a148-4b1a-b2de-3e4582932971
+
+	measure 'Total Flights' = COUNTROWS('flight_data_2024_powerbi')
+		formatString: #,##0
+		lineageTag: 3d0222d3-85e2-43dd-9f3a-4ee8babda417
+
+	measure 'On-Time Performance %' =
+			DIVIDE(
+			    CALCULATE([Total Flights], 'flight_data_2024_powerbi'[DelayStatus] IN { "On Time", "Early" }),
+			    CALCULATE([Total Flights], 'flight_data_2024_powerbi'[cancelled] = 0, 'flight_data_2024_powerbi'[diverted] = 0),
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: e5adf0d4-0c66-4c0b-bc0c-21dd5f975d50
+
+	measure 'Delay Rate %' =
+			DIVIDE(
+			    CALCULATE([Total Flights], 'flight_data_2024_powerbi'[DelayStatus] = "Delayed"),
+			    CALCULATE([Total Flights], 'flight_data_2024_powerbi'[cancelled] = 0, 'flight_data_2024_powerbi'[diverted] = 0),
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: 07897504-cec8-42d7-95bc-24fc3cef94ec
+
+	measure 'Cancellation Rate %' =
+			DIVIDE(
+			    CALCULATE([Total Flights], 'flight_data_2024_powerbi'[cancelled] = 1),
+			    [Total Flights],
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: c5777f60-781c-45e9-8003-67f1d6fa1da7
+
+	measure 'Total Delay Hours' = DIVIDE(SUM('flight_data_2024_powerbi'[TotalDelayMinutes]), 60, 0)
+		formatString: #,##0.0
+		lineageTag: 3cbd68e7-2e83-4a1b-b9ff-036d71473a04
+
+	measure 'Avg Arrival Delay (min)' = AVERAGE('flight_data_2024_powerbi'[arr_delay])
+		formatString: #,##0.0
+		lineageTag: 7a829104-e53b-419b-a01c-64819d4b2910
+
+	measure 'Avg Departure Delay (min)' = AVERAGE('flight_data_2024_powerbi'[dep_delay])
+		formatString: #,##0.0
+		lineageTag: 8b939205-f64c-420c-b12d-75920e5c3021
+
+	measure 'Carrier Delay Hours' = DIVIDE(SUM('flight_data_2024_powerbi'[carrier_delay]), 60, 0)
+		formatString: #,##0.0
+		lineageTag: 9c049316-075d-431d-c23e-86031f6d4132
+
+	measure 'Late Aircraft Delay Hours' = DIVIDE(SUM('flight_data_2024_powerbi'[late_aircraft_delay]), 60, 0)
+		formatString: #,##0.0
+		lineageTag: ad150427-186e-442e-d34f-9714207e5243
+
+	measure 'NAS Delay Hours' = DIVIDE(SUM('flight_data_2024_powerbi'[nas_delay]), 60, 0)
+		formatString: #,##0.0
+		lineageTag: be261538-297f-453f-e450-0825318f6354
+
+	measure 'Weather Delay Hours' = DIVIDE(SUM('flight_data_2024_powerbi'[weather_delay]), 60, 0)
+		formatString: #,##0.0
+		lineageTag: cf372649-3080-4640-f561-193642907465
+
+	measure 'Carrier Delay Share %' = DIVIDE([Carrier Delay Hours], [Total Delay Hours], 0)
+		formatString: 0.00%
+		lineageTag: d0483750-4191-4751-0672-204753018576
+
+	measure 'Avg Taxi-Out (min)' = AVERAGE('flight_data_2024_powerbi'[taxi_out])
+		formatString: #,##0.0
+		lineageTag: e1594861-5202-4862-1783-315864129687
+
+	measure 'Avg Taxi-In (min)' = AVERAGE('flight_data_2024_powerbi'[taxi_in])
+		formatString: #,##0.0
+		lineageTag: f2605972-6313-4973-2894-426975230798
+
+	column CarrierCode
+		dataType: string
+		lineageTag: 9d21727b-92c8-44e2-abc4-56348d32be82
+		summarizeBy: none
+		sourceColumn: CarrierCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column AirlineName
+		dataType: string
+		lineageTag: f877ca4b-857b-42f4-8f13-be2eb92a70f1
+		summarizeBy: none
+		sourceColumn: AirlineName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_airlines = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\vanda\OneDrive\Desktop\Aviation\dim_airlines.csv"), [Delimiter = ",", Columns = 2, QuoteStyle = QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CarrierCode", type text}, {"AirlineName", type text}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

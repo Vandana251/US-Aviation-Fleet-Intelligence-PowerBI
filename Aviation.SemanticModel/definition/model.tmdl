@@ -1,0 +1,24 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["flight_data_2024_powerbi","dim_airlines","dim_airports","dim_calendar"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table flight_data_2024_powerbi
+ref table DateTableTemplate_9ecbe95b-123f-49c1-aa51-08acf77d7e38
+ref table dim_airlines
+ref table dim_airports
+ref table dim_calendar
+ref table LocalDateTable_3d574bc1-b1f4-4841-9c4f-4cc9a59cd1fa
+
+ref cultureInfo en-IN
+

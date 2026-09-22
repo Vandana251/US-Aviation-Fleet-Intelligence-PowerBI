@@ -1,0 +1,388 @@
+table flight_data_2024_powerbi
+	lineageTag: 2430e913-54ec-49b4-badd-0c93cee755d3
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 70cabc39-60b4-4e02-b2e5-bda715b173e3
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: bf6b92ff-9b7b-4474-acb8-ba75dce66285
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_month
+		dataType: int64
+		formatString: 0
+		lineageTag: ba5f114b-a604-47a1-aaa5-a85587afb24b
+		summarizeBy: sum
+		sourceColumn: day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c22d9f1-d7f6-474a-b4c0-d68181c2e226
+		summarizeBy: sum
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column fl_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5ae0a0a2-3c3f-4b19-ac97-80c2aa36d8c2
+		summarizeBy: none
+		sourceColumn: fl_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column op_unique_carrier
+		dataType: string
+		lineageTag: 912164b4-ef24-4df2-93be-73e81e83d967
+		summarizeBy: none
+		sourceColumn: op_unique_carrier
+
+		annotation SummarizationSetBy = Automatic
+
+	column op_carrier_fl_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b666b1a-cb3e-4470-a31f-d89e703324bf
+		summarizeBy: sum
+		sourceColumn: op_carrier_fl_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column origin
+		dataType: string
+		lineageTag: dd95303d-84c5-45ae-afed-c1e33830fbb2
+		summarizeBy: none
+		sourceColumn: origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column origin_city_name
+		dataType: string
+		lineageTag: f29b070f-e413-4a55-abaa-59618aac5fc2
+		summarizeBy: none
+		sourceColumn: origin_city_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column origin_state_nm
+		dataType: string
+		lineageTag: 1cb0ef67-8f90-47cc-89d2-26ef3533795d
+		summarizeBy: none
+		sourceColumn: origin_state_nm
+
+		annotation SummarizationSetBy = Automatic
+
+	column dest
+		dataType: string
+		lineageTag: b311b383-37bb-4758-9c77-37009a4faec4
+		summarizeBy: none
+		sourceColumn: dest
+
+		annotation SummarizationSetBy = Automatic
+
+	column dest_city_name
+		dataType: string
+		lineageTag: bdea412a-1bbb-4a3a-b814-6995048ae794
+		summarizeBy: none
+		sourceColumn: dest_city_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column dest_state_nm
+		dataType: string
+		lineageTag: 570f2c69-b482-4bd6-b396-72c048ac5c2e
+		summarizeBy: none
+		sourceColumn: dest_state_nm
+
+		annotation SummarizationSetBy = Automatic
+
+	column crs_dep_time
+		dataType: int64
+		formatString: 0
+		lineageTag: 6486d308-d231-41c0-9922-cc54b28e725a
+		summarizeBy: sum
+		sourceColumn: crs_dep_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column dep_time
+		dataType: int64
+		formatString: 0
+		lineageTag: de815c86-f502-45a6-82b0-514dbaa7b02e
+		summarizeBy: sum
+		sourceColumn: dep_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column dep_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: 79e6bf8f-41a7-47da-a96f-caeafb41a12e
+		summarizeBy: sum
+		sourceColumn: dep_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column taxi_out
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b025fab-070d-4774-967d-0a9bc10234ba
+		summarizeBy: sum
+		sourceColumn: taxi_out
+
+		annotation SummarizationSetBy = Automatic
+
+	column wheels_off
+		dataType: int64
+		formatString: 0
+		lineageTag: 2492a860-68b4-4ac0-9a9d-5cdddd4caa5e
+		summarizeBy: sum
+		sourceColumn: wheels_off
+
+		annotation SummarizationSetBy = Automatic
+
+	column wheels_on
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d9a0014-5404-4ecf-a5b0-816b26ff808d
+		summarizeBy: sum
+		sourceColumn: wheels_on
+
+		annotation SummarizationSetBy = Automatic
+
+	column taxi_in
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ced7250-0bc3-4069-acf1-1917b50df5d0
+		summarizeBy: sum
+		sourceColumn: taxi_in
+
+		annotation SummarizationSetBy = Automatic
+
+	column crs_arr_time
+		dataType: int64
+		formatString: 0
+		lineageTag: fc803164-864b-4d7f-aeb8-2d9423f30d8c
+		summarizeBy: sum
+		sourceColumn: crs_arr_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column arr_time
+		dataType: int64
+		formatString: 0
+		lineageTag: 8fae290b-ed45-4b2b-8eb8-503907591dea
+		summarizeBy: sum
+		sourceColumn: arr_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column arr_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: cfd50100-f930-427a-ba89-ee0849e7eca0
+		summarizeBy: sum
+		sourceColumn: arr_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelled
+		dataType: int64
+		formatString: 0
+		lineageTag: fb3ff971-b98e-4044-9fcf-455f02ad4f18
+		summarizeBy: sum
+		sourceColumn: cancelled
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancellation_code
+		dataType: string
+		lineageTag: b8282887-9523-4ca9-8bff-255142d5f1bb
+		summarizeBy: none
+		sourceColumn: cancellation_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column diverted
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ce42d19-3a83-414e-b5f6-ab02ea10ed55
+		summarizeBy: sum
+		sourceColumn: diverted
+
+		annotation SummarizationSetBy = Automatic
+
+	column crs_elapsed_time
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c5572c4-364b-4166-bd2c-549a4a87b59a
+		summarizeBy: sum
+		sourceColumn: crs_elapsed_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_elapsed_time
+		dataType: int64
+		formatString: 0
+		lineageTag: 79a2ab2d-ae1f-456d-aec2-adb618d80237
+		summarizeBy: sum
+		sourceColumn: actual_elapsed_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column air_time
+		dataType: int64
+		formatString: 0
+		lineageTag: 141ac63c-ed81-4464-be08-2e1f2b0b9c0d
+		summarizeBy: sum
+		sourceColumn: air_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column distance
+		dataType: int64
+		formatString: 0
+		lineageTag: d53f394a-dd8a-4625-ac86-7874dd49312b
+		summarizeBy: sum
+		sourceColumn: distance
+
+		annotation SummarizationSetBy = Automatic
+
+	column carrier_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: 262591cd-3a61-48ce-a32b-ce1d764e832d
+		summarizeBy: sum
+		sourceColumn: carrier_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: b7b86f41-59c2-48ea-aed5-9862a5a89ec3
+		summarizeBy: sum
+		sourceColumn: weather_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column nas_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: 5607767d-3f0d-41af-9fed-ef21e283313e
+		summarizeBy: sum
+		sourceColumn: nas_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column security_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: d0ce2082-9a07-4aaf-83d5-9d6d8ac5a0fc
+		summarizeBy: sum
+		sourceColumn: security_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_aircraft_delay
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b510947-a356-4d67-83b6-562968dbd9dc
+		summarizeBy: sum
+		sourceColumn: late_aircraft_delay
+
+		annotation SummarizationSetBy = Automatic
+
+	column Route
+		dataType: string
+		lineageTag: 31401f68-f93a-4066-b0c7-46d75b3176a3
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: 29a99c83-34a5-4a80-a56c-9c9adb651bd7
+		summarizeBy: none
+		sourceColumn: MonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeekName
+		dataType: string
+		lineageTag: fdd23c4a-df1c-45ef-a5c8-28f768632551
+		summarizeBy: none
+		sourceColumn: DayOfWeekName
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalDelayMinutes
+		dataType: int64
+		formatString: 0
+		lineageTag: a1a049de-9098-4b8e-a36e-ee044efd5e58
+		summarizeBy: sum
+		sourceColumn: TotalDelayMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column DelayStatus
+		dataType: string
+		lineageTag: 8f5e53a2-5d05-4bfb-adf3-d8d936a7dafa
+		summarizeBy: none
+		sourceColumn: DelayStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column DelayReason
+		dataType: string
+		lineageTag: 9595a0ab-3471-4f85-85f0-80bbf27a2270
+		summarizeBy: none
+		sourceColumn: DelayReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column HaulCategory =
+			SWITCH(
+			    TRUE(),
+			    'flight_data_2024_powerbi'[distance] < 500, "Short Haul (<500 mi)",
+			    'flight_data_2024_powerbi'[distance] <= 1500, "Medium Haul (500-1500 mi)",
+			    "Long Haul (>1500 mi)"
+			)
+		dataType: string
+		lineageTag: e8123901-4192-4da2-9b21-72910a826490
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition flight_data_2024_powerbi = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\vanda\OneDrive\Desktop\Aviation\flight_data_2024_powerbi.csv"), [Delimiter = ",", Columns = 41, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"year", Int64.Type}, {"month", Int64.Type}, {"day_of_month", Int64.Type}, {"day_of_week", Int64.Type}, {"fl_date", type date}, {"op_unique_carrier", type text}, {"op_carrier_fl_num", Int64.Type}, {"origin", type text}, {"origin_city_name", type text}, {"origin_state_nm", type text}, {"dest", type text}, {"dest_city_name", type text}, {"dest_state_nm", type text}, {"crs_dep_time", Int64.Type}, {"dep_time", Int64.Type}, {"dep_delay", Int64.Type}, {"taxi_out", Int64.Type}, {"wheels_off", Int64.Type}, {"wheels_on", Int64.Type}, {"taxi_in", Int64.Type}, {"crs_arr_time", Int64.Type}, {"arr_time", Int64.Type}, {"arr_delay", Int64.Type}, {"cancelled", Int64.Type}, {"cancellation_code", type text}, {"diverted", Int64.Type}, {"crs_elapsed_time", Int64.Type}, {"actual_elapsed_time", Int64.Type}, {"air_time", Int64.Type}, {"distance", Int64.Type}, {"carrier_delay", Int64.Type}, {"weather_delay", Int64.Type}, {"nas_delay", Int64.Type}, {"security_delay", Int64.Type}, {"late_aircraft_delay", Int64.Type}, {"Route", type text}, {"MonthName", type text}, {"DayOfWeekName", type text}, {"TotalDelayMinutes", Int64.Type}, {"DelayStatus", type text}, {"DelayReason", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

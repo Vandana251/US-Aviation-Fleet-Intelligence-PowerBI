@@ -1,0 +1,73 @@
+================================================================================
+AVIATION FLEET MAINTENANCE & DELAY ROOT-CAUSE TRACKER
+DATA CLEANING & TRANSFORMATION REPORT (BTS 2024 DATASET)
+================================================================================
+
+1. ROW AND COLUMN METRICS
+--------------------------------------------------------------------------------
+- Original Row Count : 7,079,081
+- Final Row Count    : 7,079,081
+- Duplicates Removed : 0
+- Original Columns   : 35
+- Final Columns      : 41
+
+2. COLUMNS REMOVED
+--------------------------------------------------------------------------------
+- None. All 35 original columns were retained to support granular slicing and root-cause analysis in Power BI.
+
+3. MISSING VALUES & BUSINESS MEANING HANDLING
+--------------------------------------------------------------------------------
+- Flight Times & Delays (dep_time, arr_time, dep_delay, arr_delay, taxi_out, taxi_in, wheels_off, wheels_on, air_time, actual_elapsed_time):
+  * Kept as empty/null for Cancelled and Diverted flights.
+  * Rationale: Flights that did not operate or did not arrive at destination do not have valid flight durations or timestamps. Replacing with 0 would artificially skew arithmetic averages and flight metrics.
+- Delay Breakdown Columns (carrier_delay, weather_delay, nas_delay, security_delay, late_aircraft_delay):
+  * Missing/null values cleanly imputed to 0.
+  * Valid zero values are strictly preserved (0 delay minutes means zero delay from that source).
+- Cancellation Code (cancellation_code):
+  * For non-cancelled flights, empty strings represent 'Not Cancelled'.
+  * For cancelled flights, codes A, B, C, D are preserved and translated in DelayReason.
+- Flight Number (op_carrier_fl_num):
+  * Handled 1 missing flight number as an empty string, cleaned float formatting (.0 removed).
+- Scheduled Elapsed Time (crs_elapsed_time):
+  * 1 missing record preserved as null.
+
+4. INVALID & SPECIAL VALUES HANDLED
+--------------------------------------------------------------------------------
+- Negative Departure and Arrival Delays:
+  * Preserved as valid negative numbers representing early flight departures and arrivals.
+- Zero Delays:
+  * Kept intact representing on-time operations.
+
+5. NEW DERIVED COLUMNS CREATED
+--------------------------------------------------------------------------------
+1. Route (Text)
+   - Combination of Origin and Destination airport IATA codes (e.g. "JFK-LAX").
+2. MonthName (Text)
+   - Full English month name ("January" to "December") for clean time-series visualization.
+3. DayOfWeekName (Text)
+   - Full English day of week name ("Monday" to "Sunday") for day-level pattern analysis.
+4. TotalDelayMinutes (Float)
+   - Total attributable delay minutes calculated from delay causes and positive arrival delay.
+5. DelayStatus (Text)
+   - Categorical classification: 'Early', 'On Time', 'Delayed' (arr_delay >= 15 min per FAA standard), 'Cancelled', 'Diverted'.
+6. DelayReason (Text)
+   - Granular root-cause categorization:
+     * 'Carrier Delay' (within airline control: maintenance, crew, cleaning, baggage, fueling)
+     * 'Late Aircraft Delay' (ripple delay from previous leg)
+     * 'National Aviation System Delay' (ATC, airport congestion, ground delay programs)
+     * 'Weather Delay' (extreme meteorological conditions)
+     * 'Security Delay' (security breach or screening delay)
+     * 'Cancelled - Carrier', 'Cancelled - Weather', 'Cancelled - NAS', 'Cancelled - Security'
+     * 'Diverted'
+     * 'No Delay / On Time'
+
+6. DATASET LIMITATIONS & ASSUMPTIONS
+--------------------------------------------------------------------------------
+- Maintenance Specifics:
+  * The BTS reporting standard aggregates maintenance delays inside 'Carrier Delay' (and cancellation code 'A').
+  * The dataset does not contain individual aircraft tail numbers, aircraft models (e.g., B737, A320), or specific mechanical work orders.
+  * Maintenance tracking in Power BI should focus on Carrier Delay patterns and Carrier Cancellations as the operational maintenance envelope.
+
+================================================================================
+REPORT GENERATED SUCCESSFULLY
+================================================================================

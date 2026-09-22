@@ -1,0 +1,17 @@
+relationship e6c548b4-5c72-41dd-a0a6-053061e1cb89
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_calendar.Date
+	toColumn: LocalDateTable_3d574bc1-b1f4-4841-9c4f-4cc9a59cd1fa.Date
+
+relationship 3a4735d7-dfcd-b541-a12a-6254e80410aa
+	fromColumn: flight_data_2024_powerbi.op_unique_carrier
+	toColumn: dim_airlines.CarrierCode
+
+relationship 54dc2515-8523-6c58-c8b5-20335fd61149
+	fromColumn: flight_data_2024_powerbi.origin
+	toColumn: dim_airports.AirportCode
+
+relationship 71c42a7c-a6ad-a512-20c1-b9388b474754
+	fromColumn: flight_data_2024_powerbi.fl_date
+	toColumn: dim_calendar.Date
+
