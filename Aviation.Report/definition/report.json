@@ -11,7 +11,7 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "Aviation_Fleet_Dark_Modern3736687906738504.json",
+      "name": "Aviation_Executive_Cockpit_(Da14601750969953675.json",
       "reportVersionAtImport": {
         "visual": "2.12.0",
         "report": "3.4.0",
@@ -52,8 +52,8 @@
       "type": "RegisteredResources",
       "items": [
         {
-          "name": "Aviation_Fleet_Dark_Modern3736687906738504.json",
-          "path": "Aviation_Fleet_Dark_Modern3736687906738504.json",
+          "name": "Aviation_Executive_Cockpit_(Da14601750969953675.json",
+          "path": "Aviation_Executive_Cockpit_(Da14601750969953675.json",
           "type": "CustomTheme"
         }
       ]

@@ -1,0 +1,84 @@
+{
+  "name": "Aviation Luxury Emerald & Gold",
+  "dataColors": [
+    "#10B981",
+    "#F59E0B",
+    "#14B8A6",
+    "#F43F5E",
+    "#EAB308",
+    "#8B5CF6",
+    "#06B6D4",
+    "#F97316",
+    "#64748B",
+    "#EC4899"
+  ],
+  "background": "#0F172A",
+  "foreground": "#F8FAFC",
+  "tableAccent": "#10B981",
+  "good": "#10B981",
+  "neutral": "#F59E0B",
+  "bad": "#F43F5E",
+  "maximum": "#10B981",
+  "center": "#F59E0B",
+  "minimum": "#1E293B",
+  "textClasses": {
+    "callout": {
+      "fontSize": 22,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#F8FAFC"
+    },
+    "title": {
+      "fontSize": 13,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#10B981"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#94A3B8"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#64748B"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": { "solid": { "color": "#1E293B" } },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#334155" } },
+            "radius": 8
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#000000" } },
+            "position": "Outer",
+            "preset": "BottomRight",
+            "transparency": 60
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": { "solid": { "color": "#0F172A" } },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

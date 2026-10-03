@@ -18,19 +18,23 @@ plt.rcParams['axes.labelcolor'] = '#94A3B8'
 plt.rcParams['xtick.color'] = '#94A3B8'
 plt.rcParams['ytick.color'] = '#94A3B8'
 
-# Theme Colors (Executive Power BI Cockpit)
-CANVAS_BG = '#080E1A'
-CARD_BG = '#111D38'
-CARD_BORDER = '#1E2D4A'
-TOPBAR_BG = '#0B1426'
-BOTTOMBAR_BG = '#0B1426'
-ACCENT_SKY = '#38BDF8'
-ACCENT_CYAN = '#06B6D4'
-ACCENT_AMBER = '#F59E0B'
-ACCENT_ROSE = '#F43F5E'
-ACCENT_EMERALD = '#10B981'
-ACCENT_PURPLE = '#A855F7'
-ACCENT_PINK = '#EC4899'
+# Theme Colors (Executive Modern Aviation Palette - No Traffic-Light Colors)
+CANVAS_BG = '#090E1A'
+CARD_BG = '#121D36'
+CARD_BORDER = '#1E3056'
+TOPBAR_BG = '#0D1527'
+BOTTOMBAR_BG = '#0D1527'
+
+ACCENT_SKY = '#38BDF8'       # Primary Aerospace Cyan
+ACCENT_CYAN = '#22D3EE'      # Ice Cyan
+ACCENT_TEAL = '#2DD4BF'      # Mint Teal (Clean On-Time)
+ACCENT_EMERALD = '#38BDF8'   # Alias to Crisp Cyan (No raw green)
+ACCENT_INDIGO = '#818CF8'    # Slate Indigo
+ACCENT_PURPLE = '#A855F7'    # Royal Violet
+ACCENT_ROSE = '#FB7185'      # Sunset Coral / Rose (Delays)
+ACCENT_AMBER = '#818CF8'     # Slate Indigo
+ACCENT_CORAL = '#F472B6'     # Soft Berry
+TEXT_MAIN = '#F8FAFC'
 TEXT_MUTED = '#94A3B8'
 TEXT_DIM = '#64748B'
 
@@ -42,7 +46,7 @@ PAGE_TITLES = [
     "05. Airline Operational Leaderboard",
     "06. Airport Hub Bottlenecks & Gridlock",
     "07. Route Network Intelligence",
-    "08. 24x7 Peak Congestion Heatmap",
+    "08. Peak Congestion & Hourly Delay Patterns",
     "09. Weather Dynamics & Cancellations",
     "10. Runway Surface Efficiency"
 ]
@@ -127,20 +131,28 @@ def render_page_1():
 
     # Left Visual Card: Flight Status Donut
     add_pbi_card(ax, 1.5, 6, 38, 70)
-    ax.text(3.5, 73, "FLIGHT STATUS DISTRIBUTION", fontsize=10, fontweight='bold', color=TEXT_MUTED, zorder=2)
+    ax.text(3.5, 73, "FLIGHT STATUS BREAKDOWN", fontsize=10, fontweight='bold', color=TEXT_MUTED, zorder=2)
     
-    sub_ax1 = fig.add_axes([0.04, 0.16, 0.33, 0.50], facecolor='none')
-    labels = ['On-Time (78.4%)', 'Delayed (20.0%)', 'Cancelled (1.4%)', 'Diverted (0.2%)']
+    sub_ax1 = fig.add_axes([0.03, 0.28, 0.35, 0.42], facecolor='none')
     sizes = [78.4, 20.0, 1.4, 0.2]
-    colors = [ACCENT_EMERALD, ACCENT_AMBER, ACCENT_ROSE, ACCENT_PURPLE]
-    wedges, texts, autotexts = sub_ax1.pie(sizes, labels=labels, autopct='%1.1f%%', pctdistance=0.78,
-                                           colors=colors, startangle=140, textprops=dict(color=TEXT_MUTED, fontsize=8),
-                                           wedgeprops=dict(width=0.42, edgecolor=CARD_BG, lw=2))
-    for at in autotexts:
-        at.set_color('#FFFFFF')
-        at.set_fontsize(8)
-        at.set_weight('bold')
-    sub_ax1.text(0, 0, "7.08M\nFlights", ha='center', va='center', fontsize=11, fontweight='heavy', color='#FFFFFF')
+    colors = [ACCENT_SKY, ACCENT_INDIGO, ACCENT_ROSE, ACCENT_PURPLE]
+    wedges, _ = sub_ax1.pie(sizes, colors=colors, startangle=90,
+                            wedgeprops=dict(width=0.38, edgecolor=CARD_BG, lw=2.5))
+    sub_ax1.text(0, 0.08, "7.08M", ha='center', va='center', fontsize=15, fontweight='heavy', color='#FFFFFF')
+    sub_ax1.text(0, -0.18, "Total Flights", ha='center', va='center', fontsize=8.5, color=TEXT_MUTED)
+
+    # Clean Legend Below Donut
+    legend_items = [
+        ("On-Time Flights", "78.4% (5.46M)", ACCENT_SKY),
+        ("Delayed (>15m)", "20.0% (1.50M)", ACCENT_INDIGO),
+        ("Cancelled Flights", "1.4% (103K)", ACCENT_ROSE),
+        ("Diverted Flights", "0.2% (13.5K)", ACCENT_PURPLE)
+    ]
+    for idx, (label, val_str, col) in enumerate(legend_items):
+        ly = 24.5 - idx * 4.4
+        ax.add_patch(patches.Circle((4.5, ly), 0.8, facecolor=col, edgecolor='none', zorder=3))
+        ax.text(6.5, ly, label, fontsize=8, fontweight='semibold', color='#E2E8F0', va='center', zorder=3)
+        ax.text(37.5, ly, val_str, fontsize=8, fontweight='bold', color=col, ha='right', va='center', zorder=3)
 
     # Right Visual Card: Monthly Trend
     add_pbi_card(ax, 41, 6, 57.5, 70)
@@ -199,7 +211,7 @@ def render_page_2():
 
     # Right Visual: Delay Economics & Insights
     add_pbi_card(ax, 59, 6, 39.5, 70)
-    ax.text(61, 73, "FINANCIAL IMPACT & ACTIONABILITY", fontsize=10, fontweight='bold', color=ACCENT_AMBER, zorder=2)
+    ax.text(61, 72.5, "FINANCIAL IMPACT & ACTIONABILITY", fontsize=9.5, fontweight='bold', color=ACCENT_AMBER, zorder=2)
     
     insights = [
         ("73.2% Controllable Loss", "Late Aircraft (41%) + Carrier (32.2%) delays are operational and manageable through schedule buffers.", ACCENT_ROSE),
@@ -208,10 +220,10 @@ def render_page_2():
         ("Turnaround Buffers", "Adding 15-min turn buffers on high-frequency trunks prevents 45% of afternoon ripple.", ACCENT_EMERALD)
     ]
     for idx, (head, desc, col) in enumerate(insights):
-        iy = 64 - idx * 13.5
-        add_pbi_card(ax, 61, iy, 35.5, 11.5, bg='#0E1830', border=col, radius=0.8)
-        ax.text(62.5, iy + 9.5, head, fontsize=9.5, fontweight='bold', color=col, va='top', zorder=3)
-        ax.text(62.5, iy + 6.0, desc, fontsize=7.5, color='#CBD5E1', va='top', zorder=3, linespacing=1.2)
+        iy = 56.5 - idx * 12.5
+        add_pbi_card(ax, 61, iy, 35.5, 10.5, bg='#0E1830', border=col, radius=0.8)
+        ax.text(62.5, iy + 7.8, head, fontsize=8.5, fontweight='bold', color=col, va='top', zorder=3)
+        ax.text(62.5, iy + 4.8, desc, fontsize=6.8, color='#CBD5E1', va='top', zorder=3, linespacing=1.2)
 
     return fig
 
@@ -299,7 +311,7 @@ def render_page_4():
 
     # Right: Mechanics Breakdown
     add_pbi_card(ax, 59, 6, 39.5, 70)
-    ax.text(61, 73, "RIPPLE EFFECT MECHANICS", fontsize=10, fontweight='bold', color=ACCENT_AMBER, zorder=2)
+    ax.text(61, 72.5, "RIPPLE EFFECT MECHANICS", fontsize=9.5, fontweight='bold', color=ACCENT_AMBER, zorder=2)
     
     notes = [
         ("Tail Number Rotation", "Each commercial aircraft flies 4 to 6 legs daily. Any delay on Leg 1 propagates downstream.", ACCENT_SKY),
@@ -308,10 +320,10 @@ def render_page_4():
         ("Dynamic Recovery Buffers", "Inserting 20-min buffer times on turnaround 2 prevents 65% of compounding evening delays.", ACCENT_EMERALD)
     ]
     for idx, (head, desc, col) in enumerate(notes):
-        iy = 64 - idx * 13.5
-        add_pbi_card(ax, 61, iy, 35.5, 11.5, bg='#0E1830', border=col, radius=0.8)
-        ax.text(62.5, iy + 9.5, head, fontsize=9.5, fontweight='bold', color=col, va='top', zorder=3)
-        ax.text(62.5, iy + 6.0, desc, fontsize=7.5, color='#CBD5E1', va='top', zorder=3, linespacing=1.2)
+        iy = 56.5 - idx * 12.5
+        add_pbi_card(ax, 61, iy, 35.5, 10.5, bg='#0E1830', border=col, radius=0.8)
+        ax.text(62.5, iy + 7.8, head, fontsize=8.5, fontweight='bold', color=col, va='top', zorder=3)
+        ax.text(62.5, iy + 4.8, desc, fontsize=6.8, color='#CBD5E1', va='top', zorder=3, linespacing=1.2)
 
     return fig
 
@@ -412,49 +424,86 @@ def render_page_7():
 
     return fig
 
-# --- PAGE 8: 24x7 CONGESTION HEATMAP ---
+# --- PAGE 8: HOURLY PEAK CONGESTION & TEMPORAL DELAY PATTERNS ---
 def render_page_8():
-    fig, ax = create_pbi_canvas(8, PAGE_TITLES[7], "Temporal Matrix of Delay Severity Across Days of Week & Hours")
+    fig, ax = create_pbi_canvas(8, "08. Peak Congestion & Hourly Delay Patterns", "Temporal Delay Distribution Across 24-Hour Clock & Day of Week")
     
-    add_pbi_kpi(ax, 1.5, 78, 23, 13, "Peak Delay Window", "Friday 18:00 - 21:00", "29.8 min Avg Delay", ACCENT_ROSE)
-    add_pbi_kpi(ax, 26, 78, 23, 13, "Optimal Travel Window", "Saturday 06:00 - 10:00", "2.8 min Avg Delay", ACCENT_EMERALD)
-    add_pbi_kpi(ax, 50.5, 78, 23, 13, "Worst Travel Day", "Friday", "23.48% System Delay Rate", ACCENT_AMBER)
-    add_pbi_kpi(ax, 75, 78, 23.5, 13, "Best Travel Day", "Tuesday", "19.78% System Delay Rate", ACCENT_SKY)
+    add_pbi_kpi(ax, 1.5, 78, 23, 13, "Peak Delay Window", "18:00 - 21:00 (Evening)", "29.8 min Avg Delay", ACCENT_ROSE)
+    add_pbi_kpi(ax, 26, 78, 23, 13, "Optimal Travel Window", "06:00 - 09:00 (Morning)", "3.8 min Avg Delay", ACCENT_EMERALD)
+    add_pbi_kpi(ax, 50.5, 78, 23, 13, "Worst Travel Day", "Friday", "23.48% Flight Delay Rate", ACCENT_AMBER)
+    add_pbi_kpi(ax, 75, 78, 23.5, 13, "Best Travel Day", "Tuesday & Saturday", "19.78% Delay Rate (Lowest)", ACCENT_SKY)
 
-    # Heatmap Visual Card
-    add_pbi_card(ax, 1.5, 6, 97, 70)
-    ax.text(3.5, 73, "24-HOUR CONGESTION HEATMAP (AVERAGE DEPARTURE DELAY MINUTES)", fontsize=10, fontweight='bold', color=TEXT_MUTED, zorder=2)
+    # Chart 1: 24-Hour Hourly Delay Curve (Left Card)
+    add_pbi_card(ax, 1.5, 6, 52, 70)
+    ax.text(3.5, 73, "24-HOUR DEPARTURE DELAY CURVE (HOURLY AVERAGE MINUTES)", fontsize=9.5, fontweight='bold', color=TEXT_MUTED, zorder=2)
     
-    sub_ax = fig.add_axes([0.10, 0.16, 0.85, 0.50], facecolor='none')
+    sub_ax1 = fig.add_axes([0.05, 0.13, 0.46, 0.50], facecolor='none')
+    hours = list(range(24))
+    hour_labels = [f"{h:02d}:00" for h in hours]
+    # Realistic delay curve showing morning calm, midday rise, evening surge, and night cooldown
+    hourly_delays = [
+        14.2, 11.5, 8.1, 5.0, 3.2, 3.8, 5.4, 8.2, 11.6, 14.5,
+        16.8, 18.2, 20.1, 22.4, 24.8, 26.5, 28.9, 29.8, 28.4, 25.1,
+        22.3, 19.5, 17.2, 15.6
+    ]
+    
+    sub_ax1.fill_between(hours, hourly_delays, color=ACCENT_SKY, alpha=0.15)
+    sub_ax1.plot(hours, hourly_delays, color=ACCENT_SKY, lw=2.5, marker='o', markersize=4, zorder=3)
+    
+    # Highlight Evening Peak
+    sub_ax1.axvspan(17, 21, color=ACCENT_ROSE, alpha=0.18, label='Evening Peak Rush')
+    sub_ax1.text(19, 29.5, "PEAK RUSH\n(18:00 - 21:00)", fontsize=7.5, fontweight='bold', color=ACCENT_ROSE, ha='center')
+    
+    # Highlight Morning Safe Window
+    sub_ax1.axvspan(5, 9, color=ACCENT_EMERALD, alpha=0.15, label='Morning On-Time Window')
+    sub_ax1.text(7, 6.5, "OPTIMAL\nWINDOW", fontsize=7.5, fontweight='bold', color=ACCENT_EMERALD, ha='center')
+
+    sub_ax1.set_xticks(range(0, 24, 2))
+    sub_ax1.set_xticklabels([f"{h:02d}:00" for h in range(0, 24, 2)], fontsize=7, color=TEXT_MUTED)
+    sub_ax1.set_ylabel("Avg Delay (Minutes)", fontsize=7.5, color=TEXT_MUTED)
+    sub_ax1.tick_params(colors=TEXT_MUTED, labelsize=7)
+    for spine in sub_ax1.spines.values():
+        spine.set_color(CARD_BORDER)
+
+    # Chart 2: Day of Week Performance (Right Top Card)
+    add_pbi_card(ax, 55, 42, 43.5, 34)
+    ax.text(57, 73, "DELAY RATE BY DAY OF WEEK (%)", fontsize=9.5, fontweight='bold', color=TEXT_MUTED, zorder=2)
+    
+    sub_ax2 = fig.add_axes([0.58, 0.47, 0.38, 0.22], facecolor='none')
     days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    hours = [f"{h:02d}:00" for h in range(24)]
+    day_delay_rates = [21.8, 19.8, 20.4, 22.1, 23.5, 20.1, 22.9]
+    colors_day = [ACCENT_SKY, ACCENT_EMERALD, ACCENT_SKY, ACCENT_AMBER, ACCENT_ROSE, ACCENT_EMERALD, ACCENT_AMBER]
     
-    matrix = np.zeros((7, 24))
-    for d in range(7):
-        for h in range(24):
-            base = 3.0
-            if 6 <= h <= 10: base = 4.0 + (h - 6) * 1.5
-            elif 11 <= h <= 15: base = 10.0 + (h - 11) * 1.8
-            elif 16 <= h <= 21: base = 18.0 + (h - 16) * 1.4
-            elif h > 21: base = 16.0 - (h - 21) * 2.5
-            if d == 4: base *= 1.35  # Fri
-            elif d == 5: base *= 0.65 # Sat
-            elif d == 6: base *= 1.25 # Sun
-            matrix[d, h] = round(base, 1)
+    bars = sub_ax2.bar(days, day_delay_rates, color=colors_day, width=0.55, edgecolor=CARD_BORDER, lw=0.5)
+    sub_ax2.set_ylim(0, 28)
+    sub_ax2.set_ylabel("Delay %", fontsize=7, color=TEXT_MUTED)
+    sub_ax2.tick_params(colors=TEXT_MUTED, labelsize=7.5)
+    for spine in sub_ax2.spines.values():
+        spine.set_color(CARD_BORDER)
+    for bar, rate in zip(bars, day_delay_rates):
+        sub_ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.6, f"{rate}%", ha='center', fontsize=7, fontweight='bold', color=TEXT_MAIN)
 
-    cax = sub_ax.imshow(matrix, cmap='YlOrRd', aspect='auto', vmin=0, vmax=30)
-    sub_ax.set_xticks(range(24))
-    sub_ax.set_xticklabels(hours, fontsize=7, color=TEXT_MUTED, rotation=45)
-    sub_ax.set_yticks(range(7))
-    sub_ax.set_yticklabels(days, fontsize=8, color=TEXT_MUTED)
+    # Card 3: Actionable Schedule Windows Summary (Right Bottom Card)
+    add_pbi_card(ax, 55, 6, 43.5, 34)
+    ax.text(57, 36.5, "OPERATIONAL FLIGHT WINDOWS SUMMARY", fontsize=9.5, fontweight='bold', color=ACCENT_AMBER, zorder=2)
     
-    for d in range(7):
-        for h in range(24):
-            val = matrix[d, h]
-            col = '#000000' if val > 16 else '#FFFFFF'
-            sub_ax.text(h, d, f"{val:.0f}", ha='center', va='center', fontsize=6.5, fontweight='bold', color=col)
+    insights = [
+        ("Early Morning (05:00 - 09:00)", "91.8% On-Time", "Lowest risk. Aircraft pre-positioned overnight.", ACCENT_EMERALD),
+        ("Mid-Day Operations (10:00 - 15:00)", "79.4% On-Time", "Moderate delays start accumulating in hub network.", ACCENT_SKY),
+        ("Evening Peak Rush (16:00 - 21:00)", "65.2% On-Time", "Critical cascading delays & airport gate congestion.", ACCENT_ROSE),
+        ("Night Red-Eye (21:00 - 02:00)", "74.1% On-Time", "Delays slowly stabilize as ATC volume drops.", ACCENT_PURPLE)
+    ]
+    
+    for i, (window, metric, desc, tag_col) in enumerate(insights):
+        y_pos = 31 - i * 6.2
+        # Bullet box
+        ax.add_patch(patches.FancyBboxPatch((57, y_pos - 1.5), 1.2, 3.8, boxstyle="round,pad=0.1", facecolor=tag_col, edgecolor='none', zorder=2))
+        ax.text(59, y_pos + 1.2, window, fontsize=8, fontweight='bold', color=TEXT_MAIN, zorder=2)
+        ax.text(86, y_pos + 1.2, metric, fontsize=7.5, fontweight='bold', color=tag_col, zorder=2)
+        ax.text(59, y_pos - 1.2, desc, fontsize=6.8, color=TEXT_MUTED, zorder=2)
 
     return fig
+
 
 # --- PAGE 9: WEATHER DYNAMICS & CANCELLATIONS ---
 def render_page_9():

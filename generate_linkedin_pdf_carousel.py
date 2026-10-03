@@ -18,15 +18,18 @@ plt.rcParams['axes.labelcolor'] = '#94A3B8'
 plt.rcParams['xtick.color'] = '#94A3B8'
 plt.rcParams['ytick.color'] = '#94A3B8'
 
-# Colors
-BG_COLOR = '#0A0E1A'
-CARD_BG = '#121B2E'
-CARD_BORDER = '#1E2D4A'
-CYAN = '#00E5FF'
-AMBER = '#FFB300'
-RED = '#FF5252'
-GREEN = '#00E676'
-PURPLE = '#7C4DFF'
+# Colors (Executive Modern Aviation Palette)
+BG_COLOR = '#090E1A'
+CARD_BG = '#121D36'
+CARD_BORDER = '#1E3056'
+CYAN = '#38BDF8'
+AMBER = '#818CF8'
+RED = '#FB7185'
+ROSE = '#FB7185'
+GREEN = '#38BDF8'
+EMERALD = '#38BDF8'
+PURPLE = '#A855F7'
+BORDER = '#1E3056'
 MUTED = '#94A3B8'
 TEXT_DIM = '#64748B'
 
@@ -441,53 +444,65 @@ def build_slide_8():
 
     return fig
 
-# --- SLIDE 9: PAGE 8 - 24x7 CONGESTION HEATMAP ---
+# --- SLIDE 9: PAGE 8 - HOURLY PEAK CONGESTION & TEMPORAL PATTERNS ---
 def build_slide_9():
-    fig, ax = create_base_slide(9, "08. 24x7 Peak Congestion Heatmap", "Temporal Matrix of Delay Severity by Day of Week & Hour")
+    fig, ax = create_base_slide(9, "08. Peak Congestion & Hourly Delay Patterns", "Temporal Delay Distribution Across 24-Hour Clock & Day of Week")
     
-    # Heatmap Panel
-    add_card(ax, 6, 38, 88, 49)
-    ax.text(9, 84, "SYSTEM-WIDE AVERAGE DELAY MINUTES (DAY OF WEEK vs TIME BLOCK)", fontsize=8.5, fontweight='bold', color=MUTED, zorder=2)
+    # Top Card: Hourly Delay Curve
+    add_card(ax, 6, 48, 88, 39)
+    ax.text(9, 83.5, "24-HOUR DEPARTURE DELAY CURVE (HOURLY AVERAGE MINUTES)", fontsize=8.5, fontweight='bold', color=MUTED, zorder=2)
     
-    sub_ax = fig.add_axes([0.16, 0.41, 0.74, 0.40], facecolor='none')
-    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    times = ['Morning (05-11)', 'Midday (11-16)', 'Evening (16-21)', 'Night (21-02)']
-    
-    # Heatmap matrix
-    matrix = np.array([
-        [4.2, 12.1, 24.8, 19.5],  # Mon
-        [3.5, 9.8, 18.2, 14.1],   # Tue
-        [3.8, 10.4, 20.1, 15.6],  # Wed
-        [4.5, 13.8, 25.4, 21.2],  # Thu
-        [5.2, 16.5, 29.8, 26.4],  # Fri (Worst)
-        [2.8, 7.2, 12.4, 9.8],    # Sat (Best)
-        [4.8, 15.2, 28.1, 23.5],  # Sun
-    ])
-    
-    cax = sub_ax.imshow(matrix, cmap='YlOrRd', aspect='auto', vmin=0, vmax=32)
-    sub_ax.set_xticks(range(len(times)))
-    sub_ax.set_xticklabels(times, fontsize=7.5, color=MUTED)
-    sub_ax.set_yticks(range(len(days)))
-    sub_ax.set_yticklabels(days, fontsize=7.5, color=MUTED)
-    
-    for i in range(len(days)):
-        for j in range(len(times)):
-            val = matrix[i, j]
-            color = '#000000' if val > 20 else '#FFFFFF'
-            sub_ax.text(j, i, f"{val:.1f}m", ha='center', va='center', fontsize=7.5, fontweight='bold', color=color)
-
-    # Bottom Insights Card
-    add_card(ax, 6, 10, 88, 25, bg='#131E34', border='#253556')
-    ax.text(10, 31.5, "CRITICAL TEMPORAL PATTERNS", fontsize=10, fontweight='bold', color=AMBER, zorder=2)
-    
-    points = [
-        "**Friday Evening Peak (29.8m)**: Convergence of business travel departures and weekend leisure flights creates the week's highest gridlock.",
-        "**Saturday Morning Window (2.8m)**: Safest, lowest-risk operational window of the week with 40% less commercial traffic.",
-        "**Sunday Surge**: Heavy Sunday return travel causes severe cascading delays starting from 16:00 through midnight."
+    sub_ax = fig.add_axes([0.15, 0.52, 0.74, 0.28], facecolor='none')
+    hours = list(range(24))
+    hourly_delays = [
+        14.2, 11.5, 8.1, 5.0, 3.2, 3.8, 5.4, 8.2, 11.6, 14.5,
+        16.8, 18.2, 20.1, 22.4, 24.8, 26.5, 28.9, 29.8, 28.4, 25.1,
+        22.3, 19.5, 17.2, 15.6
     ]
-    for i, p in enumerate(points):
-        ax.text(10, 26.5 - i*4.8, "•", fontsize=14, color=CYAN, zorder=2)
-        ax.text(13, 26.5 - i*4.8, p.replace("**", ""), fontsize=8.2, color='#CBD5E1', va='top', zorder=2)
+    sub_ax.fill_between(hours, hourly_delays, color=CYAN, alpha=0.18)
+    sub_ax.plot(hours, hourly_delays, color=CYAN, lw=2.2, marker='o', markersize=3.5, zorder=3)
+    sub_ax.axvspan(17, 21, color=ROSE, alpha=0.2, label='Peak Rush')
+    sub_ax.text(19, 28.5, "PEAK RUSH\n18:00 - 21:00", fontsize=7, fontweight='bold', color=ROSE, ha='center')
+    sub_ax.axvspan(5, 9, color=EMERALD, alpha=0.18, label='Optimal Window')
+    sub_ax.text(7, 5.5, "OPTIMAL\nWINDOW", fontsize=7, fontweight='bold', color=EMERALD, ha='center')
+    
+    sub_ax.set_xticks(range(0, 24, 2))
+    sub_ax.set_xticklabels([f"{h:02d}:00" for h in range(0, 24, 2)], fontsize=7, color=MUTED)
+    sub_ax.set_ylabel("Avg Delay (min)", fontsize=7, color=MUTED)
+    sub_ax.tick_params(colors=MUTED, labelsize=7)
+    for spine in sub_ax.spines.values():
+        spine.set_color(BORDER)
+
+    # Bottom Split Cards: Day of Week & Operational Summary
+    add_card(ax, 6, 10, 42, 35)
+    ax.text(9, 41.5, "DELAY RATE BY DAY (%)", fontsize=8.5, fontweight='bold', color=MUTED, zorder=2)
+    sub_ax2 = fig.add_axes([0.13, 0.14, 0.32, 0.22], facecolor='none')
+    days_short = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    rates = [21.8, 19.8, 20.4, 22.1, 23.5, 20.1, 22.9]
+    cols = [CYAN, EMERALD, CYAN, AMBER, ROSE, EMERALD, AMBER]
+    bars = sub_ax2.bar(days_short, rates, color=cols, width=0.55, edgecolor=BORDER, lw=0.5)
+    sub_ax2.set_ylim(0, 28)
+    sub_ax2.tick_params(colors=MUTED, labelsize=6.8)
+    for spine in sub_ax2.spines.values():
+        spine.set_color(BORDER)
+    for bar, rate in zip(bars, rates):
+        sub_ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.6, f"{rate:.0f}%", ha='center', fontsize=6.5, fontweight='bold', color='#FFFFFF')
+
+    # Insights Card
+    add_card(ax, 51, 10, 43, 35, bg='#131E34', border='#253556')
+    ax.text(54, 41.5, "SCHEDULE WINDOWS", fontsize=8.5, fontweight='bold', color=AMBER, zorder=2)
+    
+    pts = [
+        ("Early Morning (05-09)", "91.8% On-Time", EMERALD),
+        ("Midday Hub Flow (10-15)", "79.4% On-Time", CYAN),
+        ("Evening Rush (16-21)", "65.2% On-Time", ROSE),
+        ("Night Red-Eye (21-02)", "74.1% On-Time", PURPLE)
+    ]
+    for i, (win, stat, col) in enumerate(pts):
+        y = 36 - i * 6.5
+        ax.add_patch(patches.FancyBboxPatch((54, y - 1), 1.2, 3.2, boxstyle="round,pad=0.1", facecolor=col, edgecolor='none', zorder=2))
+        ax.text(56.5, y + 1.2, win, fontsize=7.2, fontweight='bold', color='#F8FAFC', zorder=2)
+        ax.text(80, y + 1.2, stat, fontsize=7, fontweight='bold', color=col, zorder=2)
 
     return fig
 

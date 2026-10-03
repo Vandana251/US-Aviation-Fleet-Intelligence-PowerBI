@@ -1,0 +1,84 @@
+{
+  "name": "Aviation Corporate Executive (Clean Light)",
+  "dataColors": [
+    "#0284C7",
+    "#059669",
+    "#D97706",
+    "#E11D48",
+    "#6366F1",
+    "#0D9488",
+    "#475569",
+    "#7C3AED",
+    "#2563EB",
+    "#EA580C"
+  ],
+  "background": "#F8FAFC",
+  "foreground": "#0F172A",
+  "tableAccent": "#0284C7",
+  "good": "#059669",
+  "neutral": "#D97706",
+  "bad": "#E11D48",
+  "maximum": "#0284C7",
+  "center": "#6366F1",
+  "minimum": "#E2E8F0",
+  "textClasses": {
+    "callout": {
+      "fontSize": 22,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F172A"
+    },
+    "title": {
+      "fontSize": 13,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F172A"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#334155"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#64748B"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": { "solid": { "color": "#FFFFFF" } },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#E2E8F0" } },
+            "radius": 8
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#64748B" } },
+            "position": "Outer",
+            "preset": "BottomRight",
+            "transparency": 85
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": { "solid": { "color": "#F1F5F9" } },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

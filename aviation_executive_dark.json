@@ -1,0 +1,54 @@
+{
+  "name": "Aviation Dark Theme",
+  "dataColors": [
+    "#38BDF8",
+    "#10B981",
+    "#F59E0B",
+    "#F43F5E",
+    "#818CF8",
+    "#06B6D4",
+    "#EC4899",
+    "#34D399"
+  ],
+  "background": "#0B132B",
+  "foreground": "#F8FAFC",
+  "tableAccent": "#38BDF8",
+  "good": "#10B981",
+  "neutral": "#F59E0B",
+  "bad": "#F43F5E",
+  "textClasses": {
+    "callout": {
+      "fontSize": 20,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#F8FAFC"
+    },
+    "title": {
+      "fontSize": 13,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#38BDF8"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI",
+      "color": "#94A3B8"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#64748B"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#111C35" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#1E293B" } }, "radius": 6 }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#0B132B" } } }]
+      }
+    }
+  }
+}
